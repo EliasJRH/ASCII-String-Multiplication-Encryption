@@ -6,7 +6,6 @@ import sys
 def ASCIISME(string):
     #First a random number from 1 to sys.maxsize is generated. This is what ord_string will be mutliplied by
     rand_mult = random.randint(1, sys.maxsize) # this is never 0
-    print(rand_mult)
     ord_string = ""
     
     #For every character add the length of their corresponding ascii character (2/3), 0 (for parsing) then the ascii value to a string
