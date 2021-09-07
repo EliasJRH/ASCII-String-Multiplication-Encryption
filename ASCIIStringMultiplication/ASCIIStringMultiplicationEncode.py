@@ -4,9 +4,9 @@ import sys
 
 
 def ASCIISME(string):
-    #TODO: Figure out why some values within (1, sys.maxsize) don't work
-    #First a random number from 1 to 99999999999999 is generated. This is what ord_string will be mutliplied by
-    rand_mult = random.randint(1, 99999999999999) # this is never 0
+    #First a random number from 1 to sys.maxsize is generated. This is what ord_string will be mutliplied by
+    rand_mult = random.randint(1, sys.maxsize) # this is never 0
+    print(rand_mult)
     ord_string = ""
     
     #For every character add the length of their corresponding ascii character (2/3), 0 (for parsing) then the ascii value to a string
@@ -24,6 +24,8 @@ def ASCIISME(string):
     #For every digit in rand_mult, we pick a random position in the ordstring to insert it, we then store that position in a list
     for x in str(rand_mult):
         rand_pos = random.randint(1, max_len)
+        while (rand_pos in pos_list):
+            rand_pos = random.randint(1, max_len)
         pos_list.append(rand_pos)
         #Because the length and thus position of digits changes as they're being added, should the insertion of one digit affect another, it is updated accordingly
         for y in range(len(pos_list) - 1):
