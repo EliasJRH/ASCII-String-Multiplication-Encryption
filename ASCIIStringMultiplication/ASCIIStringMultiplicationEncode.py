@@ -36,9 +36,18 @@ def ASCIISME(string):
     #We do this in a similar to the ascii values above
     for x in pos_list:
         pos_string += str(len(str(x))) + str(0) + str(x) 
-
+        
     #We then set the posstring to be the length of the posstring, then the 0 indicator, then the posstring
-    pos_string = str(len(pos_string)) + str(0) + pos_string
+    #However, we start to see a problem with 0 indication, what if the posstring is 101 characters long? Currently it may be parsed as 1 digit long under out current logic
+    #To circumvent this, we compute the length of the posstring as a modified octal where the number 0 doesn't exist (i.e 0 -> 2, 1->3, ... 7->9)
+    print(len(pos_string))
+    pos_string_length = str(oct(len(pos_string)))[2:]
+    new_pos_string_length = ""
+    
+    for numm in pos_string_length:
+        new_pos_string_length += str(int(numm) + 2)
+     
+    pos_string = new_pos_string_length + str(0) + pos_string
    
     #We then combine the posstring and the ordstring together, this is the encrypted message
     ord_string_int_after_mult = pos_string + ord_string_int_after_mult
