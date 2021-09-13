@@ -1,4 +1,11 @@
 """ASCII string multiplication encryption"""
+def from_base_8(to_convert):
+    total = 0
+    for numm in range(len(to_convert)):
+        total += int(to_convert[-(numm+1)]) * (pow(8, numm))
+        
+    return total
+
 def ASCIISMD(intt):
     #The first step for decrypting ASCII string multiplication is to find the value that the ordstring was multiplied by
     #This is done by parsing the posstring which is always positioned at the beginning of the encrypted string
@@ -13,13 +20,20 @@ def ASCIISMD(intt):
             pos_string_len += str(intt[ind])
             ind += 1
     ind += 1
+    
+    #Convert the obtained pos_string_len from our modified base 8 back to a base 10 integer
+    new_pos_string_len = ""
+    for numm in pos_string_len:
+        new_pos_string_len += str(int(numm) - 2)
+
+    new_pos_string_len = from_base_8(new_pos_string_len)
 
     #Now determine the position of every digit of the multiplier in the ordstring
     counter = 0
     counter_str = ""
     curr_pos = ""
     pos_list = []
-    for x in range(int(pos_string_len)):
+    for x in range(int(new_pos_string_len)):
         if (counter == 0):
             if (len(curr_pos) != 0):
                 pos_list.append(int(curr_pos))
@@ -32,10 +46,11 @@ def ASCIISMD(intt):
         else:
             curr_pos += intt[ind + x]
             counter -= 1
-    pos_list.append(int(curr_pos))    
+            
+    pos_list.append(int(curr_pos))
     
     #Now that we've determined the position of every digit within the ordstring, we don't need the posstring so we can discard it
-    ind += int(pos_string_len)
+    ind += int(new_pos_string_len)
     decode_str = intt[ind:]
     
     #Retrieve every digit corresponding to a position in the ordstring and combine them together into a string
@@ -82,3 +97,4 @@ def ASCIISMD(intt):
         decoded_string += chr(char)
     
     return decoded_string
+       
