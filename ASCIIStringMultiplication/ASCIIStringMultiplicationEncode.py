@@ -40,7 +40,6 @@ def ASCIISME(string):
     #We then set the posstring to be the length of the posstring, then the 0 indicator, then the posstring
     #However, we start to see a problem with 0 indication, what if the posstring is 101 characters long? Currently it may be parsed as 1 digit long under out current logic
     #To circumvent this, we compute the length of the posstring as a modified octal where the number 0 doesn't exist (i.e 0 -> 2, 1->3, ... 7->9)
-    print(len(pos_string))
     pos_string_length = str(oct(len(pos_string)))[2:]
     new_pos_string_length = ""
     
